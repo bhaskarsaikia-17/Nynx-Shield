@@ -47,15 +47,7 @@
 
 4. Click "Load unpacked" and select the `extension` folder
 
-### Build from Source
 
-```bash
-# Install dependencies (if any)
-npm install
-
-# Build filter rules
-npm run build
-```
 
 ## Project Structure
 
