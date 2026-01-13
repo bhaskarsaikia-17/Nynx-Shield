@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nynx Shield - Settings</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: #0d0d0d;
+            border-right: 1px solid #1a1a1a;
+            padding: 24px 0;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px 24px;
+            border-bottom: 1px solid #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            border: 1px solid #333;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #00ff88;
+            filter: drop-shadow(0 0 4px rgba(0, 255, 136, 0.4));
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .nav-section {
+            padding: 0 12px;
+            margin-bottom: 8px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 12px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #888;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background: #151515;
+            color: #ccc;
+        }
+
+        .nav-item.active {
+            background: #151515;
+            color: #00ff88;
+            border-left: 3px solid #00ff88;
+            margin-left: -3px;
+        }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .nav-item span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 32px 40px;
+            max-width: 900px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .page-desc {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Settings Card */
+        .settings-card {
+            background: #111;
+            border: 1px solid #1a1a1a;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .settings-card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .settings-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .settings-card-body {
+            padding: 0;
+        }
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid #151515;
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info h4 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #ddd;
+            margin-bottom: 4px;
+        }
+
+        .setting-info p {
+            font-size: 12px;
+            color: #555;
+        }
+
+        /* Toggle Switch */
+        .toggle {
+            width: 44px;
+            height: 24px;
+            background: #333;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .toggle.active {
+            background: #00cc6a;
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s;
+        }
+
+        .toggle.active::after {
+            transform: translateX(20px);
+        }
+
+        /* Allowlist Section */
+        .allowlist-input-wrapper {
+            display: flex;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid #151515;
+        }
+
+        .allowlist-input {
+            flex: 1;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .allowlist-input:focus {
+            border-color: #00ff88;
+        }
+
+        .allowlist-input::placeholder {
+            color: #444;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #00cc6a, #00ff88);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            color: #000;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: #fff;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .allowlist-items {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .allowlist-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            border-bottom: 1px solid #151515;
+        }
+
+        .allowlist-item:last-child {
+            border-bottom: none;
+        }
+
+        .allowlist-domain {
+            font-size: 14px;
+            color: #aaa;
+            font-family: 'Courier New', monospace;
+        }
+
+        .allowlist-empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: #444;
+            font-size: 14px;
+        }
+
+        /* Filter List */
+        .filter-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-bottom: 1px solid #151515;
+        }
+
+        .filter-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .filter-icon {
+            width: 36px;
+            height: 36px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: #00ff88;
+        }
+
+        .filter-details h4 {
+            font-size: 14px;
+            color: #ddd;
+            margin-bottom: 2px;
+        }
+
+        .filter-details p {
+            font-size: 11px;
+            color: #555;
+        }
+
+        /* User Rules */
+        .rules-textarea {
+            width: 100%;
+            min-height: 200px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 10px;
+            padding: 16px;
+            color: #aaa;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+            outline: none;
+        }
+
+        .rules-textarea:focus {
+            border-color: #00ff88;
+        }
+
+        .rules-footer {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* Page Sections (hidden by default) */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Stats in General */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            padding: 20px;
+        }
+
+        .stat-card {
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #00ff88;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #555;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+                </svg>
+            </div>
+            <span class="logo-text">NYNX</span>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-label">Settings</div>
+            <a href="#" class="nav-item active" data-page="general">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z" />
+                </svg>
+                <span>General</span>
+            </a>
+            <a href="#" class="nav-item" data-page="filters">
+                <svg viewBox="0 0 24 24">
+                    <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
+                </svg>
+                <span>Filters</span>
+            </a>
+            <a href="#" class="nav-item" data-page="tracking">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
+                </svg>
+                <span>Protection</span>
+            </a>
+            <a href="#" class="nav-item" data-page="allowlist">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                </svg>
+                <span>Allowlist</span>
+            </a>
+            <a href="#" class="nav-item" data-page="rules">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+                </svg>
+                <span>Custom Rules</span>
+            </a>
+            <a href="#" class="nav-item" data-page="advanced">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+                </svg>
+                <span>Advanced</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- General Page -->
+        <section class="page-section active" id="page-general">
+            <div class="page-header">
+                <h1 class="page-title">General</h1>
+                <p class="page-desc">Overview and main settings for Nynx Shield</p>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-card-header">
+                    <span class="settings-card-title">Statistics</span>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-value" id="statTotal">0</div>
+                        <div class="stat-label">Total Blocked</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statToday">0</div>
+                        <div class="stat-label">Blocked Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statAllowlist">0</div>
+                        <div class="stat-label">Allowlisted Sites</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-card-header">
+                    <span class="settings-card-title">Shield Status</span>
+                </div>
+                <div class="settings-card-body">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Enable Protection</h4>
+                            <p>Block ads and trackers on all websites</p>
+                        </div>
+                        <div class="toggle active" id="toggleProtection"></div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Block Cosmetic Elements</h4>
+                            <p>Hide ad placeholders and empty spaces</p>
+                        </div>
+                        <div class="toggle active" id="toggleCosmetic"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters Page -->
+        <section class="page-section" id="page-filters">
+            <div class="page-header">
+                <h1 class="page-title">Filters</h1>
+                <p class="page-desc">Manage your ad blocking filter lists</p>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-card-header">
+                    <span class="settings-card-title">Active Filters</span>
+                </div>
+                <div class="settings-card-body">
+                    <div class="filter-item">
+                        <div class="filter-info">
+                            <div class="filter-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+                                </svg>
+                            </div>
+                            <div class="filter-details">
+                                <h4>Nynx Base Filter</h4>
+                                <p>Core ad blocking rules | 45,000+ rules</p>
+                            </div>
+                        </div>
+                        <div class="toggle active" data-filter="base"></div>
+                    </div>
+                    <div class="filter-item">
+                        <div class="filter-info">
+                            <div class="filter-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                                </svg>
+                            </div>
+                            <div class="filter-details">
+                                <h4>EasyList</h4>
+                                <p>International ad blocking | 70,000+ rules</p>
+                            </div>
+                        </div>
+                        <div class="toggle active" data-filter="easylist"></div>
+                    </div>
+                    <div class="filter-item">
+                        <div class="filter-info">
+                            <div class="filter-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                                </svg>
+                            </div>
+                            <div class="filter-details">
+                                <h4>Annoyances Filter</h4>
+                                <p>Cookie notices, popups | 15,000+ rules</p>
+                            </div>
+                        </div>
+                        <div class="toggle" data-filter="annoyances"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protection Page -->
+        <section class="page-section" id="page-tracking">
+            <div class="page-header">
+                <h1 class="page-title">Protection</h1>
+                <p class="page-desc">Privacy and tracking protection settings</p>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-card-header">
+                    <span class="settings-card-title">Privacy Settings</span>
+                </div>
+                <div class="settings-card-body">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Block Trackers</h4>
+                            <p>Prevent tracking scripts from loading</p>
+                        </div>
+                        <div class="toggle active" id="toggleTrackers"></div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Block Social Widgets</h4>
+                            <p>Remove Facebook, Twitter embeds that track you</p>
+                        </div>
+                        <div class="toggle active" id="toggleSocial"></div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Block Crypto Miners</h4>
+                            <p>Prevent websites from using your CPU for mining</p>
+                        </div>
+                        <div class="toggle active" id="toggleCrypto"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Allowlist Page -->
+        <section class="page-section" id="page-allowlist">
+            <div class="page-header">
+                <h1 class="page-title">Allowlist</h1>
+                <p class="page-desc">Sites where Nynx Shield is disabled</p>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-card-header">
+                    <span class="settings-card-title">Allowlisted Domains</span>
+                </div>
+                <div class="allowlist-input-wrapper">
+                    <input type="text" class="allowlist-input" id="allowlistInput"
+                        placeholder="Enter domain (e.g., example.com)">
+                    <button class="btn" id="addAllowlistBtn">Add</button>
+                </div>
+                <div class="allowlist-items" id="allowlistItems">
+                    <div class="allowlist-empty">No domains in allowlist</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom Rules Page -->
+        <section class="page-section" id="page-rules">
+            <div class="page-header">
+                <h1 class="page-title">Custom Rules</h1>
+                <p class="page-desc">Add your own blocking rules</p>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-card-header">
+                    <span class="settings-card-title">Your Rules</span>
+                </div>
+                <div style="padding: 16px 20px;">
+                    <textarea class="rules-textarea" id="customRules" placeholder="# Enter custom rules here, one per line
+# Examples:
+# ||ads.example.com^
+# @@||example.com^$document
+# example.com##.ad-banner"></textarea>
+                </div>
+                <div class="rules-footer">
+                    <button class="btn" id="saveRulesBtn">Save Rules</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Page -->
+        <section class="page-section" id="page-advanced">
+            <div class="page-header">
+                <h1 class="page-title">Advanced</h1>
+                <p class="page-desc">Advanced configuration options</p>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-card-header">
+                    <span class="settings-card-title">Data Management</span>
+                </div>
+                <div class="settings-card-body">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Reset Statistics</h4>
+                            <p>Clear all blocked counts and statistics</p>
+                        </div>
+                        <button class="btn btn-danger" id="resetStatsBtn">Reset</button>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Clear Allowlist</h4>
+                            <p>Remove all domains from allowlist</p>
+                        </div>
+                        <button class="btn btn-danger" id="clearAllowlistBtn">Clear</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-card-header">
+                    <span class="settings-card-title">About</span>
+                </div>
+                <div class="settings-card-body">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Nynx Shield</h4>
+                            <p>Version 1.0.0 | Manifest V3</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/options.js"></script>
+</body>
+
+</html>
