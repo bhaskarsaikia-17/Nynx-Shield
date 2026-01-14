@@ -68,8 +68,7 @@ nynx-shield/
 │   ├── rules/             # Blocking rules
 │   │   └── rules.json     # DNR rules
 │   └── manifest.json      # Extension manifest
-├── scripts/               # Build scripts
-├── docs/                  # Documentation
+├── scripts/               # Build scripts      
 ├── .gitignore
 ├── LICENSE
 └── README.md
