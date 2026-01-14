@@ -31,21 +31,31 @@
 
 ## Installation
 
-### From Source (Developer Mode)
+### Browser-Specific Guides
 
-1. Clone this repository:
+| Browser | Guide | Minimum Version |
+|---------|-------|--------------------|
+| <img src="https://raw.githubusercontent.com/AlfredoJonas/AlfredoJonas/main/icons/chrome.svg" width="20"> **Google Chrome** | [📖 Installation Guide](guide/chrome.md) | 88+ |
+| <img src="https://raw.githubusercontent.com/AlfredoJonas/AlfredoJonas/main/icons/edge.svg" width="20"> **Microsoft Edge** | [📖 Installation Guide](guide/edge.md) | 88+ |
+| <img src="https://raw.githubusercontent.com/AlfredoJonas/AlfredoJonas/main/icons/firefox.svg" width="20"> **Mozilla Firefox** | [📖 Installation Guide](guide/firefox.md) | 109+ |
+| <img src="https://raw.githubusercontent.com/AlfredoJonas/AlfredoJonas/main/icons/opera.svg" width="20"> **Opera** | [📖 Installation Guide](guide/opera.md) | 74+ |
+| <img src="https://raw.githubusercontent.com/AlfredoJonas/AlfredoJonas/main/icons/brave.svg" width="20"> **Brave** | [📖 Installation Guide](guide/brave.md) | 1.19+ |
+
+### Quick Start
+
+1. **Clone this repository:**
    ```bash
    git clone https://github.com/bhaskarsaikia-17/Nynx-Shield.git
    ```
 
-2. Open your browser's extension page:
-   - **Chrome**: `chrome://extensions`
-   - **Edge**: `edge://extensions`
-   - **Firefox**: `about:debugging#/runtime/this-firefox`
+2. **For Chromium browsers** (Chrome, Edge, Opera, Brave):
+   - Open extensions page (e.g., `chrome://extensions`)
+   - Enable **Developer Mode**
+   - Click **Load unpacked** → select the `extension` folder
 
-3. Enable "Developer mode"
-
-4. Click "Load unpacked" and select the `extension` folder
+3. **For Firefox:**
+   - Open `about:debugging#/runtime/this-firefox`
+   - Click **Load Temporary Add-on** → select `manifest.json`
 
 
 
